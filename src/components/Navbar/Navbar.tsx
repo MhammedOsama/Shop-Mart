@@ -56,15 +56,23 @@ export default function Navbar() {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <Link href={"/profile"}>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem className='cursor-pointer'>
+                    Profile
+                  </DropdownMenuItem>
                 </Link>
-                <Link href={"/login"}>
-                  <DropdownMenuItem>Login</DropdownMenuItem>
+                <Link href={"/login"} className='cursor-pointer'>
+                  <DropdownMenuItem className='cursor-pointer'>
+                    Login
+                  </DropdownMenuItem>
                 </Link>
                 <Link href={"/register"}>
-                  <DropdownMenuItem>Register</DropdownMenuItem>
+                  <DropdownMenuItem className='cursor-pointer'>
+                    Register
+                  </DropdownMenuItem>
                 </Link>
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem className='cursor-pointer'>
+                  Logout
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             <div className=' p-3 relative'>
