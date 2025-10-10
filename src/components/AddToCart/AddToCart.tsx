@@ -6,31 +6,28 @@ import { HeartIcon, Loader2, ShoppingCartIcon } from "lucide-react";
 import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { CartContext } from "../context/CartContext";
+import { AddToCartAction } from "@/app/(pages)/products/_action/AddToCart.action";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function AddToCart({ productId }: { productId: string }) {
   const [isLoading, setIsLoading] = useState(false);
   const { getCart } = useContext(CartContext);
+  const session = useSession();
+  const router = useRouter();
 
   async function handleAddToCart() {
-    setIsLoading(true);
-    const response = await fetch(
-      "https://ecommerce.routemisr.com/api/v1/cart",
-      {
-        method: "POST",
-        body: JSON.stringify({ productId }),
-        headers: {
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODY1YmQ2NDA5YTQ0MzA0MTkxNzU5NiIsIm5hbWUiOiJBaG1lZCBBYmQgQWwtTXV0aSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU3ODQ2MjM2LCJleHAiOjE3NjU2MjIyMzZ9.t6X0FsezrZH4litUJsMMo_ijw_CiLmYM9T7EkDf6_Eg",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
+    if (session.status == "authenticated") {
+      setIsLoading(true);
+      const data = await AddToCartAction(productId);
 
-    // setCartData(data);
-    await getCart();
-    if (data.status == "success") toast.success(data.message);
-    setIsLoading(false);
+      // setCartData(data);
+      await getCart();
+      if (data.status == "success") toast.success(data.message);
+      setIsLoading(false);
+    } else {
+      router.push("/login");
+    }
   }
 
   return (

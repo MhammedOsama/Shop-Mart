@@ -31,7 +31,7 @@ type FormField = z.infer<typeof formSchema>;
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const searchParams = useSearchParams();
-
+  const callbackUrl = searchParams.get("callback-url");
   const form = useForm<FormField>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,7 +44,7 @@ export function LoginForm() {
   async function onSubmit(values: FormField) {
     setIsLoading(true);
     const response = await signIn("credentials", {
-      callbackUrl: "/products",
+      callbackUrl: callbackUrl ?? "/",
       redirect: true,
       email: values.email,
       password: values.password,
