@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         hostname: "ecommerce.routemisr.com",
         pathname: "/Route-Academy-*/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
 };

@@ -5,7 +5,7 @@ import {
   FailedLoginResponse,
 } from "./../../../../../interfaces/login";
 
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Mohamed",
@@ -25,8 +25,10 @@ const handler = NextAuth({
             headers: { "Content-Type": "application/json" },
           }
         );
+
         const payload: SuccessLoginResponse | FailedLoginResponse =
           await response.json();
+
         if ("token" in payload) {
           return {
             id: payload.user.email,
@@ -39,24 +41,30 @@ const handler = NextAuth({
       },
     }),
   ],
+
   callbacks: {
-    jwt: ({ token, user }) => {
+    async jwt({ token, user }) {
       if (user) {
         token.user = user.user;
         token.token = user.token;
       }
       return token;
     },
-    session: ({ session, token }) => {
-      session.user = token.user;
+    async session({ session, token }) {
+      session.user = token.user as any;
+      (session.user as any).token = token.token;
       return session;
     },
   },
+
   pages: {
     signIn: "/login",
     error: "/login",
   },
-  secret: process.env.NEXTAUTH_SECRET,
-});
 
+  secret: process.env.NEXTAUTH_SECRET,
+};
+
+// ✅ Export both the handler (for Next.js routing) and authOptions (for imports elsewhere)
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

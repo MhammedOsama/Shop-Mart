@@ -1,5 +1,10 @@
-import React from "react";
+import { Category } from "@/interfaces";
+import GridItems from "@/components/GridItems/GridItems";
+import { GetAllBrands } from "./_action/GetAllBrands";
 
-export default function Brands() {
-  return <h2>Brands</h2>;
+export default async function Brands() {
+  const brands: Category[] = await GetAllBrands();
+  console.log(brands);
+
+  return <GridItems items={brands} type='brands' />;
 }

@@ -20,7 +20,7 @@ export default async function Products() {
   const { data: products }: { data: Product[] } = await response.json();
 
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mb-5'>
       {products.map((product) => (
         <div key={product.id}>
           <Card>
@@ -101,10 +101,7 @@ export default async function Products() {
               </div>
               <p className='pt-3'>
                 Price:{" "}
-                <span className='font-bold'>
-                  {" "}
-                  {formatPrice(product.price)}
-                </span>
+                <span className='font-bold'> {formatPrice(product.price)}</span>
               </p>
             </CardContent>
             <AddToCart productId={product.id} />

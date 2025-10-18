@@ -13,7 +13,9 @@ declare module "next-auth" {
     token: string;
   }
 }
-
+interface SessionUserWithToken extends UserResponse {
+  token?: string;
+}
 declare module "next-auth/jwt" {
   interface JWT {
     user: UserResponse;

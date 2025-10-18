@@ -27,7 +27,7 @@ export default function Navbar() {
   const session = useSession();
 
   return (
-    <nav className='py-3 text-2xl font-semibold bg-gray-50  fixed top-0 w-full  shadow-sm z-50'>
+    <nav className='py-3 text-2xl font-semibold bg-gray-50  fixed top-0 w-full  shadow-sm z-50 '>
       <div className='container mx-auto px-6'>
         <div className='flex justify-between items-center '>
           <Link href={"/"}>ShopMart</Link>

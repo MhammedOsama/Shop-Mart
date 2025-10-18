@@ -12,6 +12,15 @@ import { CartResponse } from "@/interfaces";
 import toast from "react-hot-toast";
 import Checkout from "@/components/Ckeckout/Checkout";
 
+import { ArrowUpRightIcon } from "lucide-react";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyTitle,
+} from "@/components/ui/empty";
+
 export default function Cart() {
   const { cartData, loading, setCartData, getCart } = useContext(CartContext);
   const [removedId, setRemovedId] = useState<string | null>(null);
@@ -263,9 +272,39 @@ export default function Cart() {
                       </div>
                     ))
                   ) : (
-                    <h1 className='min-h-[60vh] flex justify-center items-center flex-col font-bold'>
-                      Your Cart Is Empty
-                    </h1>
+                    <Empty>
+                      <EmptyHeader>
+                        <EmptyTitle>No Items Yet</EmptyTitle>
+                        <EmptyDescription>
+                          Add your first product.
+                        </EmptyDescription>
+                      </EmptyHeader>
+                      <EmptyContent>
+                        <div className='flex gap-2'>
+                          <Link href={"/products"}>
+                            <Button className='cursor-pointer'>
+                              Add Product
+                            </Button>
+                          </Link>
+                          <Link href={"/categories"}>
+                            <Button
+                              variant='outline'
+                              className='cursor-pointer'>
+                              Browse Categories
+                            </Button>
+                          </Link>
+                        </div>
+                      </EmptyContent>
+                      <Button
+                        variant='link'
+                        asChild
+                        className='text-muted-foreground'
+                        size='sm'>
+                        <Link href={"/"}>
+                          Learn More <ArrowUpRightIcon />
+                        </Link>
+                      </Button>
+                    </Empty>
                   )}
                 </div>
               </div>
