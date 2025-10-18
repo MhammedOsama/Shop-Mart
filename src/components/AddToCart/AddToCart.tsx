@@ -9,7 +9,6 @@ import { CartContext } from "../context/CartContext";
 import { AddToCartAction } from "@/app/(pages)/products/_action/AddToCart.action";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import AddToWishlist from "../AddtoWishlist/AddToWishlist";
 
 export default function AddToCart({ productId }: { productId: string }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +43,7 @@ export default function AddToCart({ productId }: { productId: string }) {
         )}{" "}
         Add To card
       </Button>
-      <AddToWishlist productId={productId} />
+      <HeartIcon />
     </CardFooter>
   );
 }
